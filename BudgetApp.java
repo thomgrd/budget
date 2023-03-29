@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetApp extends JFrame {
-
+    private JPanel budgetsPanel;
     private JPanel contentPane;
     private List<Budget> budgets = new ArrayList<>();
     private List<Expense> expenses = new ArrayList<>();
@@ -82,7 +82,20 @@ public class BudgetApp extends JFrame {
     }
     private void addExpense() {
     }
-
+    private void updateBudgetsPanel() {
+        budgetsPanel.removeAll();
+        for (Budget budget : budgets) {
+            JPanel budgetPanel = new JPanel();
+            budgetPanel.setLayout(new GridLayout(1, 2));
+            budgetPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            budgetPanel.add(new JLabel(String.format("Budget: $%.2f", budget.getAmount())));
+            budgetPanel.add(new JLabel(String.format("Expenses: $%.2f", budget.getTotalExpenses())));
+            budgetsPanel.add(budgetPanel);
+        }
+        revalidate();
+        repaint();
+    }
+    
     private void updateBudgetsPanel() {
         budgetsPanel.removeAll();
     
