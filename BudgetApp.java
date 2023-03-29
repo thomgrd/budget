@@ -80,7 +80,36 @@ public class BudgetApp extends JFrame {
         addBudget();
         addExpense();
     }
+    private void addExpense() {
+    }
 
+    private void updateBudgetsPanel() {
+        budgetsPanel.removeAll();
+    
+        for (Budget budget : budgets) {
+            JPanel budgetPanel = new JPanel(new BorderLayout());
+            budgetPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+            budgetPanel.setBackground(Color.WHITE);
+    
+            JLabel budgetLabel = new JLabel(String.format("Budget: $%.2f", budget.getBudgetAmount()));
+            budgetLabel.setFont(new Font("Arial", Font.BOLD, 16));
+            budgetPanel.add(budgetLabel, BorderLayout.NORTH);
+    
+            JLabel expenseLabel = new JLabel(String.format("Expenses: $%.2f", budget.getExpensesTotal()));
+            expenseLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+            budgetPanel.add(expenseLabel, BorderLayout.CENTER);
+    
+            JButton addExpenseButton = new JButton("Add Expense");
+            addExpenseButton.addActionListener(e -> addExpense(budget));
+            budgetPanel.add(addExpenseButton, BorderLayout.EAST);
+    
+            budgetsPanel.add(budgetPanel);
+        }
+    
+        budgetsPanel.revalidate();
+        budgetsPanel.repaint();
+    }
+    
     private void addBudget() {
         String input = JOptionPane.showInputDialog(this, "Enter budget amount:");
         if (input != null && !input.isEmpty()) {
